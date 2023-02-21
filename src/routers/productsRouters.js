@@ -11,9 +11,10 @@ const {
   updateProduct,
   deleteProduct
 } = require('../controllers/productsControllers');
+const { Router } = require('express');
 
 // Register a product
-router.patch('/register', validate(productRegisterBody), createProduct);
+router.post('/register', validate(productRegisterBody), createProduct);
 
 // Update a product
 router.put('/update/:id', updateProduct);
