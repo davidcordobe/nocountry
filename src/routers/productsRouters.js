@@ -13,7 +13,7 @@ const {
 } = require('../controllers/productsControllers');
 
 // Register a product
-router.post('/register', validate(productRegisterBody), createProduct);
+router.patch('/register', validate(productRegisterBody), createProduct);
 
 // Update a product
 router.put('/update/:id', updateProduct);
