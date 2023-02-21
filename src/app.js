@@ -1,7 +1,7 @@
 const express  = require('express')
 
 // globalError
-const globalError = require('./utils/globalError')
+const globalError = require('./utils/globalError.js')
 
 const app = express()
 
