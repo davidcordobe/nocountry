@@ -11,7 +11,6 @@ const {
   updateProduct,
   deleteProduct
 } = require('../controllers/productsControllers');
-const { Router } = require('express');
 
 // Register a product
 router.post('/register', validate(productRegisterBody), createProduct);
