@@ -1,8 +1,5 @@
 const express  = require('express')
 
-// routers user
-const { userRouter } = require('./routers/user.router')
-
 // globalError
 const globalError = require('./utils/globalError')
 
