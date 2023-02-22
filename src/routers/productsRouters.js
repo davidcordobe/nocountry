@@ -1,26 +1,26 @@
 const express = require('express');
 const router = express.Router();
 
-// Middlewares
-const { productRegisterBody } = require('../middlewares/productBody.middleware');
-const { validate } = require('../middlewares/body.middleware');
-
-// Controllers
+// middelwares
 const {
-  createProduct,
-  updateProduct,
+  producRegisterBody
+} = require('../middlewares/productBody.middleware')
+const {
+  validate
+} = require('../middlewares/body.middleware')
+
+const {
+  obtenerProductos,
+  actualizarProducto,
+  crearProductos,
   deleteProduct
-} = require('../controllers/productsControllers');
+} = require('../controllers/productsControllers')
 
-// Register a product
-router.post('/register', validate(productRegisterBody), createProduct);
-
-// Update a product
-router.put('/update/:id', updateProduct);
-
-// Delete a product
+router.get('/allproducts', obtenerProductos)
+router.post('/register', validate(producRegisterBody), crearProductos);
+router.put('/update/:id', actualizarProducto);
 router.delete('/delete/:id', deleteProduct);
 
-// Export the router
-module.exports = router;
 
+
+module.exports = { productRouter: router };

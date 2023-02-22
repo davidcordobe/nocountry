@@ -1,5 +1,5 @@
-const AppError = require('../utils/AppError');
-const tryCatch = require('../utils/tryCatch.js');
+const AppError = require('../utils/appError');
+const tryCatch = require('../utils/tryCatch');
 
 const bcrypt = require('bcrypt');
 

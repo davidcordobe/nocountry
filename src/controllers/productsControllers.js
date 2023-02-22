@@ -1,116 +1,80 @@
 const Products = require('../models/productsModels');
 
-class Product {
 
-    async findAll(req, res, next) {
-        try {
-            const products = await Products.find().lean();
-            res.status(200).json({
-                status: 'success',
-                data: {
-                    products
-                }
-            });
-        } catch (error) {
-            res.status(500).json({
-                status: 'fail',
-                message: error.message
-            });
-        }
-    }
+exports.crearProductos = async (req, res, next) => {
+    
+    try {
+        const product = new Products(req.body);
+        await product.save();
+        res.send(Products);
 
-    async create(req, res, next) {
-        try {
-            const newProduct = new Products(req.body);
-            await newProduct.save();
-            res.status(201).json({
-                status: 'success',
-                data: {
-                    product: newProduct
-                }
-            });
-        } catch (error) {
-            res.status(500).json({
-                status: 'fail',
-                message: error.message
-            });
-        }
-    }
-
-    async filter(req, res, next) {
-        const { category, model, brand, minPrice, maxPrice } = req.query;
-        let filter = {};
-
-        if (category) {
-            filter.category = category;
-        }
-        if (model) {
-            filter.model = model;
-        }
-        if (brand) {
-            filter.brand = brand;
-        }
-        if (minPrice && maxPrice) {
-            filter.price = { $gte: minPrice, $lte: maxPrice };
-        } else if (minPrice) {
-            filter.price = { $gte: minPrice };
-        } else if (maxPrice) {
-            filter.price = { $lte: maxPrice };
-        }
-
-        try {
-            const filteredProducts = await Products.find(filter).lean();
-            res.status(200).json({
-                status: 'success',
-                data: {
-                    products: filteredProducts
-                }
-            });
-        } catch (error) {
-            res.status(500).json({
-                status: 'fail',
-                message: error.message
-            });
-        }
-    }
-
-    async delete(req, res, next) {
-        const { id } = req.params;
-        try {
-            const deletedProduct = await Products.findOneAndRemove({ _id: id });
-            res.status(200).json({
-                status: 'success',
-                message: 'Producto eliminado exitosamente',
-                data: {
-                    product: deletedProduct
-                }
-            });
-        } catch (error) {
-            res.status(500).json({
-                status: 'fail',
-                message: error.message
-            });
-        }
-    }
-
-    async update(req, res, next) {
-        const { id } = req.params;
-        try {
-            const updatedProduct = await Products.findOneAndUpdate({ _id: id }, req.body, { new: true });
-            res.status(200).json({
-                status: 'success',
-                message: 'Producto actualizado exitosamente',
-                data: {
-                    product: updatedProduct
-                }
-            });
-        } catch (error) {
-            res.status(500).json({
-                status: 'fail',
-                message: error.message
-            });
-        }
+    } catch (error) {
+        console.log(error);
+        res.status(500).send('Hubo un error');
     }
 }
 
-module.exports = new Product();
+exports.obtenerProductos = async (req, res, next) => {
+
+    try {
+        const Products = await Products.find();
+        res.json(Products)
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).send('Hubo un error');
+    }
+}
+
+exports.actualizarProducto = async (req, res, next) => {
+    
+    try {
+        const { title, model, brand, price, description } = req.body;
+        let Products = await Products.findById(req.params.id);
+        if (!Products) {
+            res.status(404).json({ msg: 'No existe el producto '})
+        }
+
+        await product.updateOne({ $set: req.body });
+        product.save();
+
+        Products = await Products.findOneAndUpdate({ _id: req.params.id },product, {new: true} )
+        res.json(Products);
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).send('Hubo un error');  
+    }
+}
+
+exports.obtenerProducto = async (req, res, next) => {
+    
+    try {
+        let Products = await Products.findById(req.params.id);
+        if (!Products) {
+            res.status(404).json({ msg: 'No existe el producto '})
+        }
+        return res.json(product);
+
+    } catch (error) {
+        res.status(500).json({ msg: 'Hubo un error' });;  
+    }
+}
+
+exports.deleteProduct = async (req, res, next) => {
+    
+    try {
+        let Products = await Products.findById(req.params.id);
+        if (!Products) {
+            res.status(404).json({ msg: 'No existe el producto '})
+        }
+        await Products.findOneAndRemove({ _id: req.params.id })
+        res.json({ msg: 'Producto eliminado con exito'});
+
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ msg: 'Hubo un error' });;  
+    }
+}
+
+
