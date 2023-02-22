@@ -10,7 +10,7 @@ return {}
 */
 const startServer = () => { 
 
-  const PORT = process.env.SERVER_PORT || 4545
+  const PORT = process.env.PORT || 4545
 
   app.listen(PORT, () => {
     connectDB()
