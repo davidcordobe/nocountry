@@ -17,8 +17,8 @@ exports.crearProductos = async (req, res, next) => {
 exports.obtenerProductos = async (req, res, next) => {
 
     try {
-        const Products = await Products.find().lean();
-        res.json(Products)
+        const products = await Products.find().lean();
+        res.json(products)
 
     } catch (error) {
         console.log(error);
