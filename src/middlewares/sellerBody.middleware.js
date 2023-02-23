@@ -2,7 +2,7 @@ const { body } = require('express-validator');
 
 // models
 const Seller = require('../models/sellerModels');
-const AppError = require('../utils/AppError');
+const AppError = require('../utils/AppError.js');
 
 exports.sellerRegisterBody = [
   body('name')

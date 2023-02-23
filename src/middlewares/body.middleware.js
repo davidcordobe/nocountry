@@ -1,7 +1,7 @@
 const { validationChain, validationResult } = require('express-validator');
 
 // Errors utils
-const AppError = require('../utils/AppError');
+const AppError = require('../utils/AppError.js');
 
 const validate = validations => { 
 
