@@ -6,6 +6,7 @@ const cors = require('cors');
 const globalError = require('./utils/globalError');
 
 const app = express();
+app.use(express.json());
 
 app.use(cors());
 
