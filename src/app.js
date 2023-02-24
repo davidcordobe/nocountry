@@ -1,18 +1,19 @@
-const express  = require('express')
+const express  = require('express');
 
-// routers user
-const { userRouter } = require('./routers/user.router')
+const cors = require('cors');
 
 // globalError
-const globalError = require('./utils/globalError')
+const globalError = require('./utils/globalError');
 
-const app = express()
+const app = express();
+
+app.use(cors());
 
 
 // configuracion para la aceptacion de res JSON
 
-app.use(express.json())
-app.use(express.urlencoded({extended: true}))
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
 
 
 // endpoints
